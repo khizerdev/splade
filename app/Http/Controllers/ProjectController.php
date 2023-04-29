@@ -33,7 +33,10 @@ class ProjectController extends Controller
 
     public function store(StoreProjectRequest $request)
     {
-        $project = Project::create($request->validated());
+        $data = $request->validated();
+        $data['logo'] = $request->file('logo')->store('logos');
+        $project = Project::create($data);
+
         $project->users()->attach($request->users);
 
         Toast::title('Project saved');
