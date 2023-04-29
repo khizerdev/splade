@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\SpladeTable;
 use ProtoneMedia\Splade\Facades\Toast;
+use ProtoneMedia\Splade\Facades\SEO;
 
 class ProjectController extends Controller
 {
@@ -47,6 +48,8 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
+        SEO::title($project->name);
+
         $categories = Category::pluck('name', 'id');
         $users = User::pluck('name', 'id');
 
