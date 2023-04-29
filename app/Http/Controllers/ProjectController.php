@@ -18,6 +18,7 @@ class ProjectController extends Controller
             'projects' => SpladeTable::for(Project::class)
                 ->column('id')
                 ->column('name', sortable:true,searchable:true)
+                ->column('actions')
                 ->withGlobalSearch(columns:['name'])
                 ->paginate(5),
         ]);
@@ -40,6 +41,38 @@ class ProjectController extends Controller
         $project->users()->attach($request->users);
 
         Toast::title('Project saved');
+
+        return redirect()->route('projects.index');
+    }
+
+    public function edit(Project $project)
+    {
+        $categories = Category::pluck('name', 'id');
+        $users = User::pluck('name', 'id');
+
+        return view('projects-edit', compact('project', 'categories', 'users'));
+    }
+
+    public function update(Project $project, StoreProjectRequest $request)
+    {
+        $data = $request->validated();
+        $data['logo'] = $request->file('logo')->store('logos');
+        $project->update($data);
+
+        $project->users()->sync($request->users);
+
+        Toast::title('Project saved');
+
+        return redirect()->route('projects.index');
+    }
+
+    public function destroy(Project $project)
+    {
+
+        $project->users()->detach();
+        $project->delete();
+
+        Toast::title('Project deleted');
 
         return redirect()->route('projects.index');
     }
