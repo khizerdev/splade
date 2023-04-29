@@ -12,6 +12,7 @@
 
         <!-- Scripts -->
         @vite(['resources/js/app.js'])
+        <script src="https://cdn.tailwindcss.com"></script>
         @spladeHead
     </head>
     <body class="font-sans antialiased">
