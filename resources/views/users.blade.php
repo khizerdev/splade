@@ -11,7 +11,12 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 
             <div class="relative overflow-x-auto p-5">
-                <x-splade-table :for="$users" class="min-w-full" />
+                <x-splade-table :for="$users" class="min-w-full">
+                    <x-splade-cell actions>
+                        <Link modal href="/users/{{$item->id}}">Show Modal</Link> &nbsp; | &nbsp;
+                        <Link slideover href="/users/{{$item->id}}">Show Slide</Link>
+                    </x-splade-cell>
+                </x-splade-table>
             </div>
 
             </div>

@@ -34,7 +34,10 @@ Route::middleware('splade')->group(function () {
 
     
     Route::middleware('auth')->group(function () {
+        
         Route::get('users' , [UserController::class, 'index'])->name('users');
+        Route::get('users/{user}' , [UserController::class, 'show'])->name('users.show');
+
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->middleware(['verified'])->name('dashboard');

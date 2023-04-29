@@ -15,8 +15,14 @@ class UserController extends Controller
                 ->column('id')
                 ->column('name', sortable:true,searchable:true)
                 ->column('email')
+                ->column('actions')
                 ->withGlobalSearch(columns:['name','email'])
                 ->paginate(15),
         ]);
+    }
+
+    public function show(User $user)
+    {
+        return view('users-show' , compact('user'));
     }
 }
